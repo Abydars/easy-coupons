@@ -1,7 +1,5 @@
 === Easy Coupons ===
 
-== Description ==
-
 Easy Coupons
 
 == Installation ==
