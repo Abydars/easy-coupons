@@ -1,0 +1,35 @@
+.ec-box {
+    padding: 5px;
+    background: #EEE;
+    border-radius: 2px;
+    margin-top: 20px;
+}
+
+.ec-field {
+    margin-bottom: 10px;
+}
+
+.ec-field-half {
+    display: flex;
+    gap: 10px;
+}
+
+.ec-field-half .ec-field {
+    width: 50%;
+}
+
+.ec-field label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 500;
+}
+
+.ec-field input {
+    width: 100%;
+    display: block;
+    padding: 5px;
+}
+
+.ec-input-submit {
+    margin-top: 10px !important;
+}
