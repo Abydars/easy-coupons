@@ -1,4 +1,22 @@
-/**
- * All of the CSS for your public-facing functionality should be
- * included in this file.
- */
+.ec-video {
+    height: 200px;
+    display: flex;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    cursor: pointer;
+}
+
+.ec-video h3 {
+    align-self: flex-end;
+    display: block;
+    color: #FFF;
+    background: black;
+    padding: 15px 20px;
+    font-size: 20px;
+}
+
+#ec-check-coupon-form,
+#ec-video {
+    display: none;
+}

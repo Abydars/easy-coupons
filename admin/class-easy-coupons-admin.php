@@ -108,30 +108,20 @@ class Easy_Coupons_Admin
 	public function register_post_type()
 	{
 		$labels = array(
-			'name'                  => _x( 'Coupons', 'Post type general name', 'easy-coupons' ),
-			'singular_name'         => _x( 'Coupon', 'Post type singular name', 'easy-coupons' ),
-			'menu_name'             => _x( 'Coupons', 'Admin Menu text', 'easy-coupons' ),
-			'name_admin_bar'        => _x( 'Coupon', 'Add New on Toolbar', 'easy-coupons' ),
-			'add_new'               => __( 'Add New', 'easy-coupons' ),
-			'add_new_item'          => __( 'Add New Coupon', 'easy-coupons' ),
-			'new_item'              => __( 'New Coupon', 'easy-coupons' ),
-			'edit_item'             => __( 'Edit Coupon', 'easy-coupons' ),
-			'view_item'             => __( 'View Coupon', 'easy-coupons' ),
-			'all_items'             => __( 'All Coupons', 'easy-coupons' ),
-			'search_items'          => __( 'Search Coupons', 'easy-coupons' ),
-			'parent_item_colon'     => __( 'Parent Coupons:', 'easy-coupons' ),
-			'not_found'             => __( 'No coupons found.', 'easy-coupons' ),
-			'not_found_in_trash'    => __( 'No coupons found in Trash.', 'easy-coupons' ),
-			'featured_image'        => _x( 'Coupon Cover Image', 'Overrides the “Featured Image” phrase for this post type. Added in 4.3', 'easy-coupons' ),
-			'set_featured_image'    => _x( 'Set cover image', 'Overrides the “Set featured image” phrase for this post type. Added in 4.3', 'easy-coupons' ),
-			'remove_featured_image' => _x( 'Remove cover image', 'Overrides the “Remove featured image” phrase for this post type. Added in 4.3', 'easy-coupons' ),
-			'use_featured_image'    => _x( 'Use as cover image', 'Overrides the “Use as featured image” phrase for this post type. Added in 4.3', 'easy-coupons' ),
-			'archives'              => _x( 'Coupon archives', 'The post type archive label used in nav menus. Default “Post Archives”. Added in 4.4', 'easy-coupons' ),
-			'insert_into_item'      => _x( 'Insert into coupon', 'Overrides the “Insert into post”/”Insert into page” phrase (used when inserting media into a post). Added in 4.4', 'easy-coupons' ),
-			'uploaded_to_this_item' => _x( 'Uploaded to this coupon', 'Overrides the “Uploaded to this post”/”Uploaded to this page” phrase (used when viewing media attached to a post). Added in 4.4', 'easy-coupons' ),
-			'filter_items_list'     => _x( 'Filter coupons list', 'Screen reader text for the filter links heading on the post type listing screen. Default “Filter posts list”/”Filter pages list”. Added in 4.4', 'easy-coupons' ),
-			'items_list_navigation' => _x( 'Coupons list navigation', 'Screen reader text for the pagination heading on the post type listing screen. Default “Posts list navigation”/”Pages list navigation”. Added in 4.4', 'easy-coupons' ),
-			'items_list'            => _x( 'Coupons list', 'Screen reader text for the items list heading on the post type listing screen. Default “Posts list”/”Pages list”. Added in 4.4', 'easy-coupons' ),
+			'name'               => _x( 'Coupons', 'Post type general name', 'easy-coupons' ),
+			'singular_name'      => _x( 'Coupon', 'Post type singular name', 'easy-coupons' ),
+			'menu_name'          => _x( 'Coupons', 'Admin Menu text', 'easy-coupons' ),
+			'name_admin_bar'     => _x( 'Coupon', 'Add New on Toolbar', 'easy-coupons' ),
+			'add_new'            => __( 'Add New', 'easy-coupons' ),
+			'add_new_item'       => __( 'Add New Coupon', 'easy-coupons' ),
+			'new_item'           => __( 'New Coupon', 'easy-coupons' ),
+			'edit_item'          => __( 'Edit Coupon', 'easy-coupons' ),
+			'view_item'          => __( 'View Coupon', 'easy-coupons' ),
+			'all_items'          => __( 'All Coupons', 'easy-coupons' ),
+			'search_items'       => __( 'Search Coupons', 'easy-coupons' ),
+			'parent_item_colon'  => __( 'Parent Coupons:', 'easy-coupons' ),
+			'not_found'          => __( 'No coupons found.', 'easy-coupons' ),
+			'not_found_in_trash' => __( 'No coupons found in Trash.', 'easy-coupons' ),
 		);
 
 		$args = array(
@@ -150,6 +140,41 @@ class Easy_Coupons_Admin
 		);
 
 		register_post_type( 'coupon', $args );
+
+		$labels = array(
+			'name'               => _x( 'Videos', 'Post type general name', 'easy-coupons' ),
+			'singular_name'      => _x( 'Video', 'Post type singular name', 'easy-coupons' ),
+			'menu_name'          => _x( 'Videos', 'Admin Menu text', 'easy-coupons' ),
+			'name_admin_bar'     => _x( 'Video', 'Add New on Toolbar', 'easy-coupons' ),
+			'add_new'            => __( 'Add New', 'easy-coupons' ),
+			'add_new_item'       => __( 'Add New Video', 'easy-coupons' ),
+			'new_item'           => __( 'New Video', 'easy-coupons' ),
+			'edit_item'          => __( 'Edit Video', 'easy-coupons' ),
+			'view_item'          => __( 'View Video', 'easy-coupons' ),
+			'all_items'          => __( 'All Videos', 'easy-coupons' ),
+			'search_items'       => __( 'Search Videos', 'easy-coupons' ),
+			'parent_item_colon'  => __( 'Parent Videos:', 'easy-coupons' ),
+			'not_found'          => __( 'No videos found.', 'easy-coupons' ),
+			'not_found_in_trash' => __( 'No videos found in Trash.', 'easy-coupons' ),
+		);
+
+		$args = array(
+			'labels'             => $labels,
+			'public'             => true,
+			'publicly_queryable' => true,
+			'show_ui'            => true,
+			'show_in_menu'       => true,
+			'query_var'          => true,
+			'rewrite'            => array( 'slug' => 'videos' ),
+			'capability_type'    => 'post',
+			'has_archive'        => false,
+			'hierarchical'       => false,
+			'menu_position'      => null,
+			'supports'           => array( 'title', 'thumbnail' ),
+		);
+
+		register_post_type( 'video', $args );
+
 		flush_rewrite_rules();
 	}
 
@@ -158,12 +183,29 @@ class Easy_Coupons_Admin
 		add_meta_box(
 			'coupon-meta',
 			'Configuration',
-			[ $this, 'meta_boxes_html' ],
+			[ $this, 'coupon_meta_boxes_html' ],
 			'coupon'
+		);
+		add_meta_box(
+			'video-meta',
+			'Video Fields',
+			[ $this, 'video_meta_boxes_html' ],
+			'video'
 		);
 	}
 
-	public function meta_boxes_html( $post )
+	public function video_meta_boxes_html( $post )
+	{
+		$url = get_post_meta( $post->ID, '_url', true );
+		?>
+        <div class="ec-field">
+            <label for="wporg_field">URL</label>
+            <input type="text" name="video[_url]" value="<?= $url ?>"/>
+        </div>
+		<?php
+	}
+
+	public function coupon_meta_boxes_html( $post )
 	{
 		$expiry = get_post_meta( $post->ID, '_expiry', true );
 		?>
@@ -178,6 +220,12 @@ class Easy_Coupons_Admin
 	{
 		if ( array_key_exists( 'coupon', $_POST ) ) {
 			foreach ( $_POST['coupon'] as $k => $v ) {
+				update_post_meta( $post_id, $k, esc_html( $v ) );
+			}
+		}
+
+		if ( array_key_exists( 'video', $_POST ) ) {
+			foreach ( $_POST['video'] as $k => $v ) {
 				update_post_meta( $post_id, $k, esc_html( $v ) );
 			}
 		}
@@ -262,6 +310,7 @@ class Easy_Coupons_Admin
 		unset( $columns['date'] );
 
 		$columns['expiry'] = __( 'Expiry', 'easy-coupons' );
+		$columns['used']   = __( 'Used For', 'easy-coupons' );
 		$columns['date']   = $date_column;
 
 		return $columns;
@@ -274,6 +323,10 @@ class Easy_Coupons_Admin
 				$expiry = get_post_meta( $post_id, '_expiry', true );
 				echo date( 'j F Y', strtotime( $expiry ) );
 				break;
+			case 'used':
+				$video_id = get_post_meta( $post_id, '_usage_video_id', true );
+				echo $video_id ? '<a href="' . get_edit_post_link( $video_id ) . '">' . get_post( $video_id )->post_title . '</a>' : 'Not used';
+				break;
 		}
 	}
 
@@ -284,6 +337,7 @@ class Easy_Coupons_Admin
 		if ( $typenow == 'coupon' ) {
 			$expiry = ! empty( $_REQUEST['expiry'] ) ? esc_html( $_REQUEST['expiry'] ) : '';
 			?>
+            <label>Filter by expiry</label>
             <input type="date" name="expiry" value="<?= $expiry ?>"/>
 		<?php }
 	}

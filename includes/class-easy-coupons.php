@@ -189,6 +189,11 @@ class Easy_Coupons
 
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
+		$this->loader->add_action( 'init', $plugin_public, 'shortcodes' );
+		$this->loader->add_action( 'wp_ajax_check_coupon', $plugin_public, 'ajax_check_coupon' );
+		$this->loader->add_action( 'wp_ajax_nopriv_check_coupon', $plugin_public, 'ajax_check_coupon' );
+		$this->loader->add_action( 'wp_ajax_load_video', $plugin_public, 'ajax_load_video' );
+		$this->loader->add_action( 'wp_ajax_nopriv_load_video', $plugin_public, 'ajax_load_video' );
 
 	}
 
@@ -265,6 +270,55 @@ class Easy_Coupons
 		update_post_meta( $coupon, '_expiry', $expiry );
 
 		return get_post( $coupon );
+	}
+
+	public static function getCoupon( $code )
+	{
+		global $wpdb;
+
+		$post_id = $wpdb->get_var( "SELECT ID FROM {$wpdb->prefix}posts WHERE post_title = '{$code}' AND post_type = 'coupon' AND post_status = 'publish';" );
+
+		return ! empty( $post_id ) ? $post_id : false;
+	}
+
+	public static function isExpired( $code )
+	{
+		$coupon_id = self::getCoupon( $code );
+
+		if ( $coupon_id ) {
+			$expiry = get_post_meta( $coupon_id, '_expiry', true );
+			$diff   = strtotime( $expiry ) - time();
+
+			return ! ( $diff > 0 );
+		}
+
+		return true;
+	}
+
+	public static function canBeUsed( $code, $video_id )
+	{
+		$coupon_id = self::getCoupon( $code );
+
+		if ( $coupon_id ) {
+			$coupon_video_id = get_post_meta( $coupon_id, '_usage_video_id', true );
+			$used            = $coupon_video_id === $video_id;
+
+			return ( empty( $coupon_video_id ) || $used );
+		}
+
+		return false;
+	}
+
+	public static function getCoupons()
+	{
+		return $_COOKIE['ec-coupon'] ?: [];
+	}
+
+	public static function saveCoupon( $code )
+	{
+		$coupons              = self::getCoupons();
+		$coupons[]            = $code;
+		$_COOKIE['ec-coupon'] = $coupons;
 	}
 
 }

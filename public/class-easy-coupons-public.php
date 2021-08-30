@@ -102,6 +102,87 @@ class Easy_Coupons_Public
 		 */
 
 		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/easy-coupons-public.js', array( 'jquery' ), $this->version, false );
+		wp_localize_script( $this->plugin_name, 'ec_ajax', [
+			'ajax_url' => admin_url( 'admin-ajax.php' ),
+		] );
+	}
 
+	public function shortcodes()
+	{
+		add_shortcode( 'easy-coupon-videos', [ $this, 'render_videos' ] );
+	}
+
+	public function render_videos()
+	{
+		ob_start();
+
+		$video_id = ! empty( $_REQUEST['ec-video'] ) ? $_REQUEST['ec-video'] : false;
+		$template = "shortcode-videos";
+
+		if ( ! empty( $video_id ) ) {
+			$template = "shortcode-coupon";
+		} else {
+			$videos = get_posts( [
+				                     'post_type'      => 'video',
+				                     'posts_per_page' => - 1,
+				                     'meta_key'       => '_url',
+				                     'meta_compare'   => 'EXISTS'
+			                     ] );
+
+		}
+
+		include dirname( __FILE__ ) . "/partials/{$template}.php";
+
+		return ob_get_clean();
+	}
+
+	public function ajax_check_coupon()
+	{
+		$url = $code = $video_id = $is_expired = $can_use = false;
+
+		if ( ! empty( $_REQUEST['video_id'] ) ) {
+			$code       = ! empty( $_REQUEST['code'] ) ? $_REQUEST['code'] : false;
+			$video_id   = ! empty( $_REQUEST['video_id'] ) ? $_REQUEST['video_id'] : false;
+			$coupon_id  = Easy_Coupons::getCoupon( $code );
+			$is_expired = Easy_Coupons::isExpired( $code );
+			$can_use    = Easy_Coupons::canBeUsed( $code, $video_id );
+
+			if ( $coupon_id && ! $is_expired && $can_use ) {
+				update_post_meta( $coupon_id, '_usage_video_id', $video_id );
+
+				$url = add_query_arg( [
+					                      'video'    => $video_id,
+					                      'action'   => 'load_video',
+					                      'ec-nonce' => wp_create_nonce( 'ec-video' )
+				                      ], admin_url( 'admin-ajax.php' ) );
+			}
+		}
+
+		echo json_encode( [
+			                  'status'   => ! empty( $url ),
+			                  'source'   => $url,
+			                  'video_id' => $video_id,
+			                  'code'     => $code,
+			                  'error'    => $is_expired ? "Coupon Expired" : ! $can_use ? "Already Used" : false
+		                  ] );
+		die;
+	}
+
+	public function ajax_load_video()
+	{
+		if ( ! empty( $_REQUEST['video'] ) && wp_verify_nonce( $_REQUEST['ec-nonce'], 'ec-video' ) ) {
+			$video_id  = $_REQUEST['video'];
+			$video_url = get_post_meta( $video_id, '_url', true );
+
+			if ( ! empty( $video_url ) ) {
+				header( 'Content-type: video/mp4' );
+
+				readfile( $video_url );
+				die;
+			}
+		} else {
+			echo json_encode( [ 'error' => 'failed to load' ] );
+		}
+		die;
 	}
 }
