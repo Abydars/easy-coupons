@@ -146,9 +146,13 @@ class Easy_Coupons_Public
 			$coupon_id  = Easy_Coupons::getCoupon( $code );
 			$is_expired = Easy_Coupons::isExpired( $code );
 			$can_use    = Easy_Coupons::canBeUsed( $code, $video_id );
+			$is_admin   = strtolower( $code ) == 'admn';
 
-			if ( $coupon_id && ! $is_expired && $can_use ) {
-				update_post_meta( $coupon_id, '_usage_video_id', $video_id );
+			if ( $is_admin || ( $coupon_id && ! $is_expired && $can_use ) ) {
+
+				if ( ! $is_admin ) {
+					update_post_meta( $coupon_id, '_usage_video_id', $video_id );
+				}
 
 				$url = add_query_arg( [
 					                      'video'    => $video_id,
@@ -163,7 +167,7 @@ class Easy_Coupons_Public
 			                  'source'   => $url,
 			                  'video_id' => $video_id,
 			                  'code'     => $code,
-			                  'error'    => $is_expired ? "Coupon Expired" : ! $can_use ? "Already Used" : false
+			                  'error'    => empty( $url ) ? ( empty( $coupon_id ) ? 'Invalid Coupon' : $is_expired ? "Coupon Expired" : ! $can_use ? "Already Used" : false ) : false
 		                  ] );
 		die;
 	}

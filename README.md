@@ -19,13 +19,13 @@ e.g.
   - [x] As an admin, I should be able to search and delete any individual coupon code
   - [x] As an admin, I should be able to specify an expiry date when I generate coupon codes
   - [x] As an admin, I should be able to bulk delete coupons based on expiry date
-- [ ] Create a page with 3 gated educational YouTube videos
-  - [ ] As a visitor, to unlock and display a single video I should be able to enter a single valid coupon code (found in the database and future expiry)
-  - [ ] As a visitor, I should receive an error message if I attempt to use the same coupon code more than once
-  - [ ] As a visitor, I should continue to have access to a video after I enter a valid coupon code (even if I close the browser and return to the site)
-  - [ ] As an admin, I should be able to see which video a coupon code was applied to
+- [x] Create a page with 3 gated educational YouTube videos
+  - [x] As a visitor, to unlock and display a single video I should be able to enter a single valid coupon code (found in the database and future expiry)
+  - [x] As a visitor, I should receive an error message if I attempt to use the same coupon code more than once
+  - [x] As a visitor, I should continue to have access to a video after I enter a valid coupon code (even if I close the browser and return to the site)
+  - [x] As an admin, I should be able to see which video a coupon code was applied to
   - [ ] As an admin, I should see a report of failed coupon code validations with two categories: not found & already used
-  - [ ] As an admin, I should be able to use the coupon code ADMN unlimited times to access any video
+  - [x] As an admin, I should be able to use the coupon code ADMN unlimited times to access any video
 - [ ] Testing
   - [ ] As a developer, I should be able to test any business logic with automated unit tests
 - [ ] Styling
