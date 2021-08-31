@@ -241,6 +241,19 @@ class Easy_Coupons_Admin
 			'ec-generate-coupons',
 			[ $this, 'render_generate_coupons' ]
 		);
+		add_submenu_page(
+			'edit.php?post_type=coupon',
+			__( 'Coupon Reports', 'easy-coupons' ),
+			__( 'Coupon Reports', 'easy-coupons' ),
+			'manage_options',
+			'ec-report-coupons',
+			[ $this, 'render_report_coupons' ]
+		);
+	}
+
+	public function render_report_coupons()
+	{
+		include dirname( __FILE__ ) . '/partials/report-coupons.php';
 	}
 
 	public function render_generate_coupons()
@@ -352,6 +365,22 @@ class Easy_Coupons_Admin
 				$query->query_vars['meta_key']     = '_expiry';
 				$query->query_vars['meta_compare'] = '=';
 				$query->query_vars['meta_value']   = esc_html( $_REQUEST['expiry'] );
+			}
+		}
+	}
+
+	public function actions()
+	{
+		if ( isset( $_REQUEST['ec-nonce'] ) && isset( $_REQUEST['ec-action'] ) && wp_verify_nonce( $_REQUEST['ec-nonce'], $_REQUEST['ec-action'] ) ) {
+			switch ( $_REQUEST['ec-action'] ) {
+				case "clear-logs":
+					update_option( 'coupons_not_found', [] );
+					update_option( 'coupons_expired', [] );
+					update_option( 'coupons_used', [] );
+
+					wp_redirect( admin_url( 'edit.php?post_type=coupon&page=ec-report-coupons' ) );
+					die;
+					break;
 			}
 		}
 	}

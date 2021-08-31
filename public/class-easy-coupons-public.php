@@ -162,12 +162,45 @@ class Easy_Coupons_Public
 			}
 		}
 
+		$report_tr = [ 'code' => $code, 't' => time() ];
+		if ( empty( $coupon_id ) ) {
+			$not_found = get_option( 'coupons_not_found', [] );
+
+			if ( empty( $not_found ) ) {
+				$not_found = [];
+			}
+
+			$not_found[] = $report_tr;
+
+			update_option( 'coupons_not_found', $not_found );
+		} else if ( $is_expired ) {
+			$expired = get_option( 'coupons_expired', [] );
+
+			if ( empty( $expired ) ) {
+				$expired = [];
+			}
+
+			$expired[] = $report_tr;
+
+			update_option( 'coupons_expired', $expired );
+		} else if ( ! $can_use ) {
+			$used = get_option( 'coupons_used', [] );
+
+			if ( empty( $used ) ) {
+				$used = [];
+			}
+
+			$used[] = $report_tr;
+
+			update_option( 'coupons_used', $used );
+		}
+
 		echo json_encode( [
 			                  'status'   => ! empty( $url ),
 			                  'source'   => $url,
 			                  'video_id' => $video_id,
 			                  'code'     => $code,
-			                  'error'    => empty( $url ) ? ( empty( $coupon_id ) ? 'Invalid Coupon' : $is_expired ? "Coupon Expired" : ! $can_use ? "Already Used" : false ) : false
+			                  'error'    => empty( $url ) ? ( empty( $coupon_id ) ? 'Invalid Coupon' : ( $is_expired ? "Coupon Expired" : ( ! $can_use ? "Already Used" : false ) ) ) : false
 		                  ] );
 		die;
 	}
